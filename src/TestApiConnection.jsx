@@ -13,12 +13,12 @@ const TestApiConnection = () => {
   // GET: Obtener todos los clientes
   const fetchClientes = async () => {
   try {
-    const response = await fetch('http://localhost:5295/api/Clientes', { // Cambia a HTTP
+    const response = await fetch('http://localhost:5295/api/Clientes', {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
       },
-      credentials: 'omit' // Desactiva temporalmente
+      credentials: 'omit'
     });
     
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -34,7 +34,6 @@ const TestApiConnection = () => {
     setLoading(false);
   }
 };
-  // POST: Crear nuevo cliente
   const createCliente = async () => {
     try {
       const response = await fetch('https://localhost:5295/api/Clientes', {
@@ -49,7 +48,6 @@ const TestApiConnection = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Recargar la lista después de crear
       await fetchClientes();
       setNewCliente({ nombre: '', email: '', telefono: '' });
     } catch (err) {
@@ -58,7 +56,6 @@ const TestApiConnection = () => {
     }
   };
 
-  // DELETE: Eliminar cliente
   const deleteCliente = async (id) => {
     if (!window.confirm('¿Eliminar este cliente?')) return;
     
@@ -71,7 +68,6 @@ const TestApiConnection = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Recargar la lista después de eliminar
       await fetchClientes();
     } catch (err) {
       setError(`Error al eliminar cliente: ${err.message}`);
@@ -79,7 +75,6 @@ const TestApiConnection = () => {
     }
   };
 
-  // Cargar clientes al montar el componente
   useEffect(() => {
     fetchClientes();
   }, []);
